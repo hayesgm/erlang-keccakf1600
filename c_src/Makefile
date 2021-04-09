@@ -90,7 +90,8 @@ endif
 CFLAGS += -I"$(ERTS_INCLUDE_DIR)" -I"$(ERL_INTERFACE_INCLUDE_DIR)"
 CXXFLAGS += -I"$(ERTS_INCLUDE_DIR)" -I"$(ERL_INTERFACE_INCLUDE_DIR)"
 
-ifeq ($(OTP_VERSION),"23")
+NOINTERFACE := $(shell [ $(OTP_VERSION) -ge 23  ] && echo true)
+ifeq ($(NOINTERFACE),true)
     LDLIBS += -L"$(ERL_INTERFACE_LIB_DIR)" -lei
 else
     LDLIBS += -L"$(ERL_INTERFACE_LIB_DIR)" -lerl_interface -lei
